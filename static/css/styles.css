@@ -1,0 +1,74 @@
+
+
+/*settings backfround for each section*/
+#content{
+    background: url("/static/images/aaa.jpg");
+    background-color: rgb(189, 193, 206);
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: multiply;
+}
+#join{
+    background: url("/static/images/bbb.jpg");
+    background-color: rgb(71, 90, 151);
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: multiply;
+}
+
+#create{
+    background: url("/static/images/ccc.jpg");
+    background-color: rgb(231, 234, 241);
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: multiply;
+}
+
+/*settings for content text*/
+.content-text{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'Tilt Prism', cursive;
+    text-align: center;
+}
+/*default setting for head and body of the sections*/
+.head{ 
+    margin: 5vmin auto 0 auto;
+    color: black;
+}
+.body{
+    margin: 0 auto 10vmin auto;
+    color: black;
+}
+
+/*specific settings for each section*/
+#content .head{ 
+    font-size: 20vmin;
+}
+
+#content .body{
+    font-size: 7vmin;
+}
+#join .head{ 
+    color: aliceblue;
+    font-size: 10vmin;
+}
+
+#join .body a{
+    font-size: 7vmin;
+    color: aliceblue;
+}
+#create .head{ 
+    color: aliceblue;
+    font-size: 5vmin;
+}
+
+#create .body a{
+    font-size: 7vmin;
+    color: rgb(255, 255, 255);
+}

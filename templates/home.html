@@ -1,5 +1,49 @@
-{% extends 'index.html' %}
-
+{% extends 'base.html' %}
+{% load static %}
+{% block header %}
+<!-- Link for "font-awesome" from cdnjs.com-->
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
+{% block title %}
+Berliner
+{% endblock %}
 {% block content %} 
-<h1> Main page  </h1>
+    <!-- Main content -->
+    <section id="content" class="background">
+        <hr>
+        <div class="content-text">
+            <div class="head">
+                <h1 class="head">Berliner</h1>
+            </div>
+            <div class="body">
+                <h2>We connect people </h2>
+                <a href="sign_in">Join us</a>
+            </div>
+
+        </div>
+</section>
+
+<section id="join" class="background">
+    <hr>
+    <div class="content-text">
+        <div class="head">
+            <h1>Feel alone?</h1>
+        </div>
+        <div class="body">
+            <a href="sign_in">Find a group that fits you</a>
+        </div>
+    </div>    
+</section>
+
+<section id="create">
+    <hr>
+    <div class="content-text">
+        <div class="head">
+            <h1>Can't find a team that fits you?</h1>
+        </div>
+        <div class="body">
+            <a href="sign_in">Create your own</a>
+        </div>
+    </div>    
+</section> 
 {% endblock %} 
