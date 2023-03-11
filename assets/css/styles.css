@@ -1,111 +1,8 @@
 
-/* import tilt neon font*/
-@import url('https://fonts.googleapis.com/css2?family=Tilt+Neon&family=Tilt+Prism&display=swap');
-/*delete a default padding and margin*/
-*{
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0; 
-}
-@media screen and (max-width: 600px) {
-    .navbar ul{
-        flex-direction: column;
-
-    }
-    .flex{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between; /*on x(main) line*/
-        height: 100%;
-    }
-    .navbar{
-        display: flex;
-
-    }
-    .navbar .icon{
-        margin: 10px 10px;
-    }    
-}
-html{
-    scroll-behavior: smooth;
-}
-/*use needed font, color and height*/
-body {
-font-family: 'Tilt Neon', cursive;
-color: rgb(122, 179, 100);
-line-height: 1.6;
-}
-
-/*make section full page*/
-section{
-    min-height: 100vh;
-    min-width: 100vw;
-}
-
-/*delete default styles*/
-ul {
-
-    list-style-type: none;
-}
-/*delete decorations and use preferable color*/
-a{
-text-decoration: none;
-color: rgb(0, 0, 0);
-}
-/*make it less bold and add some margin to y axis */
-h1, h2{
-font-weight: 300;
-line-height: 1.2;
-margin: 10px 0;
-} 
-
-p{
-    margin: 10px 0;
-}
-/*restrict image inside their containers*/
-img{
-    width: 100%;
-}
-/*navbar settings*/
-.navbar{
-	background-color: rgb(22, 22, 26);
-	color: white;
-	height: 8vh;
-    position: fixed; /* Set the navbar to fixed position */
-    top: 0; /* Position the navbar at the top of the page */
-    width: 100%;    
-}
-
-/*make content of the navbar allign to the center*/
-.container{
-    max-width: 1800px;
-    margin: 0 auto;
-    overflow: auto;
-    padding: 0 20px;
-}
-/*create a one-dimensional layout*/
-.flex{
-    display: flex;
-    justify-content: space-between; /*on x(main) line*/
-    align-items: center; /*on y(cross) line*/
-    height: 100%;
-}
-.navbar ul{
-    display: flex;
-    border-width: 2px;
-    border-color: white;
-}
-
-/*change colour of the navbar links*/
-.navbar a{
-    padding: 5px;
-    margin: 0 3px;
-    color: aliceblue;
-}
 
 /*settings backfround for each section*/
 #content{
-    background: url("/static/makaka/aaa.jpg");
+    background: url("/static/images/aaa.jpg");
     background-color: rgb(189, 193, 206);
     background-position: center center;
     background-size: cover;
@@ -113,7 +10,7 @@ img{
     background-blend-mode: multiply;
 }
 #join{
-    background: url("/static//images/aaa.jpg");
+    background: url("/static/images/bbb.jpg");
     background-color: rgb(71, 90, 151);
     background-position: center center;
     background-size: cover;
@@ -122,7 +19,7 @@ img{
 }
 
 #create{
-    background: url("/static/images/aaa.jpg");
+    background: url("/static/images/ccc.jpg");
     background-color: rgb(231, 234, 241);
     background-position: center center;
     background-size: cover;
