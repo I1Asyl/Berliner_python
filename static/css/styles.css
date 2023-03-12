@@ -3,7 +3,7 @@
 /*settings backfround for each section*/
 #content{
     background: url("/static/images/aaa.jpg");
-    background-color: rgb(189, 193, 206);
+    background-color: rgb(253, 253, 253);
     background-position: center center;
     background-size: cover;
     background-attachment: fixed;
@@ -38,21 +38,25 @@
 }
 /*default setting for head and body of the sections*/
 .head{ 
-    margin: 5vmin auto 0 auto;
+    margin: 8vh auto 0 auto;
     color: black;
 }
 .body{
-    margin: 0 auto 10vmin auto;
+    margin: 0 auto 5vmin auto;
     color: black;
 }
 
 /*specific settings for each section*/
 #content .head{ 
-    font-size: 20vmin;
+    font-size: 13vmin;
 }
 
 #content .body{
     font-size: 7vmin;
+}
+#content a{
+    font-size: 7vmin;
+    color: rgb(255, 255, 255);    
 }
 #join .head{ 
     color: aliceblue;

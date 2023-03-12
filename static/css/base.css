@@ -37,7 +37,7 @@ line-height: 1.6;
 
 /*make section full page*/
 section{
-    min-height: 92vh;/*not 100 because navbar is 8*/
+    min-height: 100vh;/*not 100 because navbar is 8*/
     min-width: 100vw;
 }
 
@@ -47,10 +47,6 @@ ul {
     list-style-type: none;
 }
 /*delete decorations and use preferable color*/
-a{
-text-decoration: none;
-color: rgb(0, 0, 0);
-}
 /*make it less bold and add some margin to y axis */
 h1, h2{
 font-weight: 300;
@@ -97,6 +93,8 @@ img{
 
 /*change colour of the navbar links*/
 .navbar a{
+    text-decoration: none;
+    color: rgb(0, 0, 0);    
     padding: 5px;
     margin: 0 3px;
     color: aliceblue;
