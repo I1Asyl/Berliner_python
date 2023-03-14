@@ -38,7 +38,7 @@
 }
 /*default setting for head and body of the sections*/
 .head{ 
-    margin: 8vh auto 0 auto;
+    margin: 1vh auto 0 auto;
     color: black;
 }
 .body{

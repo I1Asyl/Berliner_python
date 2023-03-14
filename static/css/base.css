@@ -37,7 +37,8 @@ line-height: 1.6;
 
 /*make section full page*/
 section{
-    min-height: 100vh;/*not 100 because navbar is 8*/
+    padding-top: 8vh;
+    min-height: 100vh;
     min-width: 100vw;
 }
 
