@@ -1,11 +1,30 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
+
+{% block title %}
+Signup
+{% endblock %}
+
 {% block content %}
 <section>
-<h2>Sign up</h2>
-<form method="post">
-{% csrf_token %}
-{{ form.as_p }}
-<button type="submit">Sign up</button>
-</form>
+    <div class="section">
+            <ul class="steps">
+                <li class="is-active">Registration</li>
+            </ul>    
+            <form method="post" class="form-wrapper">
+
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {{ field }}
+                        {{ field.errors }}
+                    {% endfor %}
+                    <button type="submit">Sign up</button>  
+                    <a href="{% url 'login' %}"><button type="button">Login</button></a>  
+            </form>
+    </div>
 </section>
+
 {% endblock %}

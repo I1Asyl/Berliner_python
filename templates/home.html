@@ -2,18 +2,17 @@
 {% load static %}
 {% block header %}
 <!-- Link for "font-awesome" from cdnjs.com-->
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
 {% block title %}
 Berliner
 {% endblock %}
 {% block content %} 
     <!-- Main content -->
-    <section id="content" class="background">
-        <hr>
-        <div class="content-text">
+    <section id="home" class="background">
+        <div class="content">
             <div class="head">
-                <h1>Berliner</h1>
+                <p>Berliner</p>
             </div>
             <div class="body">
                 <h2>We connect people </h2>
@@ -24,10 +23,9 @@ Berliner
 </section>
 
 <section id="join" class="background">
-    <hr>
-    <div class="content-text">
+    <div class="content">
         <div class="head">
-            <h1>Feel alone?</h1>
+            <p>Feel alone?</p>
         </div>
         <div class="body">
             <a href="sign_in">Find a group that fits you</a>
@@ -36,10 +34,9 @@ Berliner
 </section>
 
 <section id="create">
-    <hr>
-    <div class="content-text">
+    <div class="content">
         <div class="head">
-            <h1>Can't find a team that fits you?</h1>
+            <p>Can't find a team that fits you?</p>
         </div>
         <div class="body">
             <a href="sign_in">Create your own</a>

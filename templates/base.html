@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     {% block header %}
@@ -19,10 +20,10 @@
         <div class="container flex">
             <h1 class="logo" id="logo"><a>Berliner</a></h1>
             <ul id="navlist">
-                <li><a href="#content" onclick="closeFunc()">Home</a></li>
+                <li><a href="#home" onclick="closeFunc()">Home</a></li>
                 <li><a href="#join" onclick="closeFunc()">Become part of the group</a></li>
                 <li><a href="#create" onclick="closeFunc()">Create a group</a></li>
-                <li><a href="login.html">Log in</a></li>
+                <li><a href="{% url 'login' %}">Log in</a></li>
            
             </ul>
         </div>

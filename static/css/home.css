@@ -1,0 +1,60 @@
+
+
+/*settings backfround for each section*/
+#home{
+    background: url("/static/images/aaa.jpg");
+    background-color: rgb(253, 253, 253);
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: multiply;
+}
+#join{
+    background: url("/static/images/bbb.jpg");
+    background-color: rgb(71, 90, 151);
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: multiply;
+}
+
+#create{
+    background: url("/static/images/ccc.jpg");
+    background-color: rgb(231, 234, 241);
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: multiply;
+}
+
+
+/*specific settings for each section*/
+#home .head{ 
+    font-size: 13vmin;
+}
+
+#home .body{
+    font-size: 7vmin;
+}
+#home a{
+    font-size: 7vmin;
+    color: rgb(255, 255, 255);    
+}
+#join .head{ 
+    color: aliceblue;
+    font-size: 10vmin;
+}
+
+#join .body a{
+    font-size: 7vmin;
+    color: aliceblue;
+}
+#create .head{ 
+    color: aliceblue;
+    font-size: 5vmin;
+}
+
+#create .body a{
+    font-size: 7vmin;
+    color: rgb(255, 255, 255);
+}

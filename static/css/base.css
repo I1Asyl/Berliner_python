@@ -34,11 +34,19 @@ font-family: 'Tilt Neon', cursive;
 color: rgb(122, 179, 100);
 line-height: 1.6;
 }
-
+/*navbar settings*/
+.navbar{
+	background-color: rgb(22, 22, 26);
+	color: white;
+	height: 8vh;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%;    
+}
 /*make section full page*/
 section{
     padding-top: 8vh;
-    min-height: 100vh;
+    height: 100vh;
     min-width: 100vw;
 }
 
@@ -99,4 +107,28 @@ img{
     padding: 5px;
     margin: 0 3px;
     color: aliceblue;
+}
+
+/*settings for content*/
+.content{
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'Tilt Prism', cursive;
+    text-align: center;
+}
+/*default setting for head and body of the sections*/
+.head{ 
+    margin: 1vh auto 0 auto;
+    color: black;
+}
+.body{
+    margin: 0 auto 5vmin auto;
+    color: black;
+}
+
+.errorlist{
+    color: rgb(222, 12, 12);
 }

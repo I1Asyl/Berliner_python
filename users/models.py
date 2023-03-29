@@ -1,7 +1,8 @@
+# users/models.py
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils.timezone import now
+from django import forms
 
 class CustomUser(AbstractUser):
-    age = models.PositiveIntegerField(default=0)
-    name = models.CharField(default="", max_length=20)
-    surname = models.CharField(default="", max_length=20)
+	birthDate = models.DateTimeField(null=True)
