@@ -5,28 +5,25 @@
 {% endblock %}
 
 {% block title %}
-Login
+Signup
 {% endblock %}
 
 {% block content %}
-<section>
-    <div class="section">
-            <ul class="steps">
-                <li class="is-active">Login</li>
-            </ul>    
+    <div class="container-fluid full-height">
+ 
             <form method="post" class="form-wrapper">
-
-                <fieldset class="section">
+                
                     {% csrf_token %}
                     {% for field in form %}
+                    <div class="form-group">
+                        {{ field.label }}
                         {{ field }}
+                    </div>
                     {% endfor %}
                     {{ form.non_field_errors }}
-                    <button type="submit">Login</button>
-                    <a href="{% url 'signup' %}"><button type="button">Sign up</button></a>
-                </fieldset>                    
+                    <button type="submit" class="btn btn-primary">Login</button>  
+                    <a href="{% url 'signup' %}"><button class="btn" type="button">Sign up</button></a>  
             </form>
     </div>
-</section>
 
 {% endblock %}

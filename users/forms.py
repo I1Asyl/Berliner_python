@@ -2,7 +2,18 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 from .models import CustomUser
 
+def makeCustomForm(fields):
+        for field_name in fields:
+            field = fields.get(field_name)
+            placeHolder = "Enter " + field.label.lower()
+            field.widget = forms.TextInput(attrs={'placeholder': placeHolder, 'class': "form-control"})   
+
 class customAuthenticationForm(AuthenticationForm):
+    def __init__(self, request, *args, **kwargs):
+        super().__init__(request, *args, **kwargs)
+        makeCustomForm(self.fields)
+
+
     error_messages = {
         "invalid_login": "The username or password is incorrect",
         "inactive": "Permission denied",
@@ -12,9 +23,7 @@ class customAuthenticationForm(AuthenticationForm):
 class CustomUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field_name in self.fields:
-            field = self.fields.get(field_name)
-            field.widget = forms.TextInput(attrs={'placeholder': field.label})
+        makeCustomForm(self.fields)
 
     
 

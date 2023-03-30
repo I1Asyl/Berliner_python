@@ -9,22 +9,21 @@ Signup
 {% endblock %}
 
 {% block content %}
-<section>
-    <div class="section">
-            <ul class="steps">
-                <li class="is-active">Registration</li>
-            </ul>    
+    <div class="container-fluid full-height">
+ 
             <form method="post" class="form-wrapper">
-
+                
                     {% csrf_token %}
                     {% for field in form %}
+                    <div class="form-group">
+                        {{ field.label }}
                         {{ field }}
                         {{ field.errors }}
+                    </div>
                     {% endfor %}
-                    <button type="submit">Sign up</button>  
-                    <a href="{% url 'login' %}"><button type="button">Login</button></a>  
+                    <button type="submit" class="btn btn-primary">Sign up</button>  
+                    <a href="{% url 'login' %}"><button class="btn" type="button">Login</button></a>  
             </form>
     </div>
-</section>
 
 {% endblock %}

@@ -9,38 +9,48 @@ Berliner
 {% endblock %}
 {% block content %} 
     <!-- Main content -->
-    <section id="home" class="background">
-        <div class="content">
-            <div class="head">
-                <p>Berliner</p>
+    <div id="home" class="container-fluid full-height d-flex flex-column justify-content-between">
+        <div class="row align-items-start">
+            <div class="col-12 head">
+                    <p class="text-center">Berliner</p>
             </div>
-            <div class="body">
-                <h2>We connect people </h2>
-                <a href="sign_in">Join us</a>
+        </div>
+        <div class="row">
+            <div class="col-12 body">
+                    <p class="text-center">We connect people </p>
+                </div> 
+                <div class="col-12 body">
+                    <a href="sign_in"><p class="text-center" >Join us</p></a>
+                </div>                 
+            </div>            
+        </div> 
+    </div>
+
+    <div id="join" class="container-fluid full-height d-flex flex-column justify-content-between">
+        <div class="row align-items-start">
+            <div class="col-12 head">
+                    <p class="text-center">Feel alone?</p>
             </div>
+        </div>
+        <div class="row">
+                <div class="col-12 body">
+                    <a href="sign_in"><p class="text-center" >Find a group that fits you</p></a>
+                </div>                 
+            </div>            
+        </div> 
+    </div>
 
+    <div id="create" class="container-fluid full-height d-flex flex-column justify-content-between">
+        <div class="row align-items-start">
+            <div class="col-12 head">
+                    <p class="text-center">Can't find a team that fits you?</p>
+            </div>
         </div>
-</section>
-
-<section id="join" class="background">
-    <div class="content">
-        <div class="head">
-            <p>Feel alone?</p>
-        </div>
-        <div class="body">
-            <a href="sign_in">Find a group that fits you</a>
-        </div>
-    </div>    
-</section>
-
-<section id="create">
-    <div class="content">
-        <div class="head">
-            <p>Can't find a team that fits you?</p>
-        </div>
-        <div class="body">
-            <a href="sign_in">Create your own</a>
-        </div>
-    </div>    
-</section> 
+        <div class="row">
+                <div class="col-12 body">
+                    <a href="sign_in"><p class="text-center">Create your own</p></a>
+                </div>                 
+            </div>            
+        </div> 
+    </div>
 {% endblock %} 
