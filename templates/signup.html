@@ -9,10 +9,12 @@ Signup
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid full-height">
- 
-            <form method="post" class="form-wrapper">
-                
+    <div class="container-fluid full-height background">
+        <div class="row justify-content-center h-100 w-100 align-items-center">
+            <div class="col-sm-8 col-md-6 col-lg-4 border border-light bg-light py-5 rounded-top">
+                <h1>Sign up</h1>
+                <form method="post" class="form-wrapper">
+                    
                     {% csrf_token %}
                     {% for field in form %}
                     <div class="form-group">
@@ -24,6 +26,8 @@ Signup
                     <button type="submit" class="btn btn-primary">Sign up</button>  
                     <a href="{% url 'login' %}"><button class="btn" type="button">Login</button></a>  
             </form>
+            </div>
+        </div>
     </div>
 
 {% endblock %}
