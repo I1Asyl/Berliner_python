@@ -17,6 +17,7 @@ def get_team(request):
             data['teamLeader'] = user
             form = TeamForm(data)
             form.save()
+            
     else:
         form = TeamForm()
     return render(request, 'createTeam.html', {'form': form})
