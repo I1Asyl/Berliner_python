@@ -15,7 +15,9 @@ Berliner
 <div class="container-fluid full-height">
     <div class="row">
         <div class="col-sm-12 col-lg-4 border border-light">
-            {{ user.team_set.all }}
+            {% for team in teams %}
+            <p><a>{{ team }}</a></p>
+            {% endfor %}
             <a class="btn" href="{% url 'create' %}">Create a team</a>
         </div>
         <div class="col-sm-12 col-lg-4"></div>

@@ -15,5 +15,6 @@ Create a team
     {{ form.description }}
     {{ form.description.errors }}
 </div>
-<button type="submit" class="btn btn-primary">Create a team</button>  
+<button type="submit" class="btn btn-primary">Create a team</button> 
+<a href="{% url 'index' %}" class="btn">Cancel</a>   
 {% endblock %}
