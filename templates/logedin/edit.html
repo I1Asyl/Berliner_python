@@ -1,0 +1,15 @@
+{% extends '../base/base_registration.html' %}
+
+{% block formName %}
+Create a team
+{% endblock %}
+
+{% block form %}
+<div class="form-group">
+    {{ form.members.label }}
+    {{ form.members }}
+    {{ form.members.errors }}
+</div>
+<button type="submit" class="btn btn-primary">Add to the team</button> 
+<a href="{% url 'index' %}" class="btn">Cancel</a>   
+{% endblock %}
