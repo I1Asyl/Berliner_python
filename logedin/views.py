@@ -1,13 +1,18 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.http import HttpResponse
+from django.views.generic import TemplateView, CreateView
 from .forms import TeamForm
+from .models import Team
 from users.models import CustomUser
 class HomePageView(TemplateView):
-    template_name = 'index.html'
+    template_name = 'logedin/index.html'
 
 
-def get_team(request):
-    if request.method == 'POST':
+class CreateTeamView(CreateView):
+    model = Team
+    form_class = TeamForm
+    template_name = 'logedin/createTeam.html'
+    def post(self, request):
         form = TeamForm(request.POST)
         if form.is_valid():
             data = {}
@@ -17,8 +22,5 @@ def get_team(request):
             data['teamLeader'] = user
             form = TeamForm(data)
             form.save()
-            
-    else:
-        form = TeamForm()
-    return render(request, 'createTeam.html', {'form': form})
+        return HttpResponse("success")
         
