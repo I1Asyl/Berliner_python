@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class JoinTeamView(LoginRequiredMixin, ListView):
     login_url = 'home'
-    template_name = 'logedin/index.html'
+    template_name = 'logedin/join.html'
     def get_queryset(self):
         return Membership.objects.exclude(member=self.request.user)    
 
@@ -27,8 +27,8 @@ class HomePageView(LoginRequiredMixin, ListView):
 class EditTeamView(LoginRequiredMixin, edit.UpdateView):
     login_url = 'home'
     template_name = 'logedin/edit.html'
+    fields = ['name', 'description']
     model = Team
-    fields = ['members']
     def get_success_url(self):
         return reverse("index")
 class CreateTeamView(LoginRequiredMixin, CreateView):
@@ -41,7 +41,7 @@ class CreateTeamView(LoginRequiredMixin, CreateView):
         if form.is_valid():
             form.instance.teamLeader = self.request.user
             form.instance.save()
-            form.instance.members.add(self.request.user)
+            Membership.objects.create(member = form.instance.teamLeader, team = form.instance, isLeader = True)
             return HttpResponseRedirect(self.get_success_url())
         else:
             return render(request, self.template_name, {'form' : form})

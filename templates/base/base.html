@@ -31,8 +31,8 @@
         </button>        
         <div class="collapse navbar-collapse" id="target">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="{% if user.is_authenticated %} {% url 'join' %} {% else %}#join{% endif %}">Join a group</a>
-                <a class="nav-item nav-link active" href="#create">Create a group</a>
+                <a class="nav-item nav-link active" href="{% if user.is_authenticated %} {% url 'join' %} {% else %}#join{% endif %}">Join a team</a>
+                <a class="nav-item nav-link active" href="{% if user.is_authenticated %} {% url 'create' %} {% else %}#create{% endif %}">Create a team</a>
                 {% block navlink %}
                 {% endblock %}
             </div>

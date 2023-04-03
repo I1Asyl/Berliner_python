@@ -16,6 +16,8 @@ Berliner
     <div class="row">
         <div class="col-sm-12 col-lg-4 border border-light">
             <p>{{ team.teamLeader }}</p>
+            <a class="btn" href="{% url 'edit' team.pk %}">Edit</a>
+            <a class="btn" href="{% url 'index'%}">Delete</a>
             <a class="btn" href="{% url 'index'%}">Back</a>
         </div>
         <div class="col-sm-12 col-lg-4"></div>
