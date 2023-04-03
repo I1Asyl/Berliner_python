@@ -1,49 +1,50 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.views.generic import TemplateView, CreateView, edit
+from django.http import HttpResponseRedirect
+from django.views.generic import TemplateView, CreateView, edit, DetailView, ListView
 from .forms import TeamForm
-from .models import Team
+from .models import Team, Membership
 from users.models import CustomUser
 from django import forms
 from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin 
 
-def currentUserTeams(request):
-        teams = {}
-        user = CustomUser.objects.get(pk=request.user.pk)
-        print(user.pk)
-        for i in Team.objects.filter(teamLeader=user):
-            teams[i] = i.name
-            for j in i.members.filter():
-                pass
-        print(teams)
-        return teams
-
-class HomePageView(TemplateView):
+class JoinTeamView(LoginRequiredMixin, ListView):
+    login_url = 'home'
     template_name = 'logedin/index.html'
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {"teams" : currentUserTeams(request)})
-class EditTeamView(edit.UpdateView):
+    def get_queryset(self):
+        return Membership.objects.exclude(member=self.request.user)    
+
+class DetailTeamView(LoginRequiredMixin, DetailView):
+    login_url = 'home'
+    model = Team
+    template_name = 'logedin/detail.html'
+
+class HomePageView(LoginRequiredMixin, ListView):
+    login_url = 'home'
+    template_name = 'logedin/index.html'
+    def get_queryset(self):
+        return Team.objects.filter(teamLeader=self.request.user)
+class EditTeamView(LoginRequiredMixin, edit.UpdateView):
+    login_url = 'home'
     template_name = 'logedin/edit.html'
     model = Team
     fields = ['members']
     def get_success_url(self):
         return reverse("index")
-class CreateTeamView(CreateView):
+class CreateTeamView(LoginRequiredMixin, CreateView):
+    login_url = 'home'
     model = Team
     form_class = TeamForm
     template_name = 'logedin/createTeam.html'
-    def post(self, request):
-        form = TeamForm(request.POST)
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
         if form.is_valid():
-            data = {}
-            for i in range(len(TeamForm.Meta.fields)):
-                data[TeamForm.Meta.fields[i]] = form.cleaned_data[TeamForm.Meta.fields[i]]
-            user = CustomUser.objects.get(pk=request.user.pk)
-            data['teamLeader'] = user
-            form = TeamForm(data)
-            print(form)
-
-            form.save()
-            return HttpResponse("success")
-        return render(request, "logedin/createTeam.html", {"form": form},)
+            form.instance.teamLeader = self.request.user
+            form.instance.save()
+            form.instance.members.add(self.request.user)
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return render(request, self.template_name, {'form' : form})
+    def get_success_url(self):
+        return reverse('index')
         

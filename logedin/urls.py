@@ -1,9 +1,10 @@
 from django.urls import path
 from . import views
-from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('',  login_required(views.HomePageView.as_view(), login_url='/welcome[]'), name='index'),
+    path('', views.HomePageView.as_view(), name='index'),
     path('create/', views.CreateTeamView.as_view(), name='create'),
-    path('edit/<int:pk>/', views.EditTeamView.as_view(), name='edit')
+    path('join/', views.JoinTeamView.as_view(), name='join'),
+    path('edit/<int:pk>/', views.EditTeamView.as_view(), name='edit'),
+    path('detail/<int:pk>/', views.DetailTeamView.as_view(), name='detail'),
 ]

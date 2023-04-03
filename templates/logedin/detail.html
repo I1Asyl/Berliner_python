@@ -15,19 +15,16 @@ Berliner
 <div class="container-fluid full-height">
     <div class="row">
         <div class="col-sm-12 col-lg-4 border border-light">
-            {% for team in object_list %}
-                <p><a href="{% url 'detail' team.pk %}">{{ team.name }}</a></p>
-            {% endfor %}
-            <a class="btn" href="{% url 'create'%}">Create a team</a>
+            <p>{{ team.teamLeader }}</p>
+            <a class="btn" href="{% url 'index'%}">Back</a>
         </div>
         <div class="col-sm-12 col-lg-4"></div>
         <div class="col-sm-12 col-lg-4">
-            {% for team in object_list %}
-                <p>{{ team.name }}</p>
-                {% for member in team.members.all %}
-                <li class="">{{ member.username }}</li>
-                {% endfor %}
-            {% endfor %}            
+            {% for member in team.members.all %}
+            <li class="">{{ member.username }}</li>
+            {% empty %}
+            <li class="">Sorry, no users in this group.</li>
+            {% endfor %}
         </div>
     </div>
 

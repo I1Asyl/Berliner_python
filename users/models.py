@@ -11,7 +11,4 @@ class CustomManager(models.Manager):
         return arra
 class CustomUser(AbstractUser):
 	birthDate = models.DateTimeField(null=True)
-	objects = models.Manager()
-	customManager = CustomManager()
-	class customMeta():
-		home = 'home'
+
