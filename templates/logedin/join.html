@@ -15,9 +15,9 @@ Berliner
 <div class="container-fluid full-height">
     <div class="row">
         <div class="col-sm-12 col-lg-4 border border-light">
-            {% for membership in object_list %}
-                <p>{{ membership.team.name }}</p>
-                <p><a class="btn btn-primary">Apply</a><a class="btn">Details</a></p>  
+            {% for team in object_list %}
+                <p>{{ team.name }}</p>
+                <p><a class="btn btn-primary" href="{% url 'apply' team.pk %}">Apply</a><a class="btn">Details</a></p>  
             {% endfor %}
             <a class="btn" href="{% url 'index'%}">back</a>
         </div>

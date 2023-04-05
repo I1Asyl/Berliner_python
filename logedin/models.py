@@ -9,7 +9,7 @@ class Team(models.Model):
     #teamLeader is a foreign key to the CustomUser model
     teamLeader = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="createdTeams", related_query_name="createdTeam", to_field='username')
 
-    #members is a many to many field to the CustomUser model for team members
+    #members is a many to many field to the CustomUser model for team members through the Membership model
     members = models.ManyToManyField(CustomUser, through='Membership', through_fields=('team', 'member'), related_name="memberTeams", related_query_name="memberTeam")
     
     #applications is a many to many field to the CustomUser model for applicants through the Application model
@@ -22,6 +22,7 @@ class Team(models.Model):
 class Application(models.Model):
     applicant = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    comment = models.CharField(default="", max_length=200)
 
 class Membership(models.Model):
     member = models.ForeignKey(CustomUser, on_delete=models.CASCADE)

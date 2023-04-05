@@ -7,5 +7,4 @@ from django import forms
 class CustomUser(AbstractUser):
     birthDate = models.DateTimeField(null=True)
     class Meta:
-        permissions = (('everyone', 'View'),)
-
+        pass
