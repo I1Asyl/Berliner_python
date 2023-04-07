@@ -20,7 +20,7 @@ Berliner
                     <p class="text-center">We connect people </p>
                 </div> 
                 <div class="col-12 body">
-                    <a href="sign_in"><p class="text-center" >Join us</p></a>
+                    <a href="{% url 'signup' %}"><p class="text-center" >Join us</p></a>
                 </div>                 
             </div>            
         </div> 
@@ -34,7 +34,7 @@ Berliner
         </div>
         <div class="row">
                 <div class="col-12 body">
-                    <a href="sign_in"><p class="text-center" >Find a group that fits you</p></a>
+                    <a href="{% url 'join' %}"><p class="text-center" >Find a group that fits you</p></a>
                 </div>                 
             </div>            
         </div> 
@@ -48,7 +48,7 @@ Berliner
         </div>
         <div class="row">
                 <div class="col-12 body">
-                    <a href="sign_in"><p class="text-center">Create your own</p></a>
+                    <a href="{% url 'create' %}"><p class="text-center">Create your own</p></a>
                 </div>                 
             </div>            
         </div> 

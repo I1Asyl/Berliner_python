@@ -1,4 +1,6 @@
-
+html{
+    scroll-behavior: smooth;
+}
 .errorlist{
     color: rgb(222, 12, 12);
 }
@@ -6,4 +8,13 @@
     padding-top: 8vh;
     min-height: 100vh;
     height: 100vh;
+}
+
+body{
+    background: url("/static/images/aaa.jpg");
+    background-color: rgb(253, 253, 253);
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: multiply;
 }

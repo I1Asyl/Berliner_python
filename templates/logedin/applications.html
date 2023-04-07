@@ -14,24 +14,26 @@ Berliner
 {% block content %}
 <div class="container-fluid full-height">
     <div class="row">
-        <div class="col-sm-12 col-lg-3 border border-dark rounded">
+        <div class="col-sm-12 col-lg-3 border border-dark rounded" id="team-names">
 
             {% for application in object_list %}
-                <p>{{ application.team.name }}</p>
-                <p>{{ application.comment }}</p>
+                    <p><a class="btn">{{ application.team.name }}</a></p>
             {% endfor %}
         </div>
         <div class="col-sm-12 col-lg-6"></div>
-        <div class="col-sm-12 col-lg-3 border border-dark rounded">
+        <div class="col-sm-12 col-lg-3 border border-dark rounded" id="members">
             {% for application in object_list %}
+                <div>
                 <p>{{ application.team.name }}</p>
-                {% for member in application.team.members.all %}
-                <li class="">{{ member.username }}</li>
-                {% endfor %}
+                <p>Teamleader: {{ application.team.teamLeader }}</p>
+                <p>Your comment: {{ application.comment }}</p>
+                <a class="btn" href="{% url 'detail' application.team.pk %}">Details</a>
+                </div>
             {% endfor %}            
         </div>
     </div>
 
 </div>
+<script src="{% static 'js/index.js' %}"></script>
 
 {% endblock %}

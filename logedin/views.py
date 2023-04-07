@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 # create a mixin that will be used to check if the team leader is the user
 class TeamLeaderRequiredMixin(LoginRequiredMixin):
-    login_url = 'home'
+    login_url = 'index'
     def dispatch(self, request, *args, **kwargs):
         if not self.request.user == self.get_object().teamLeader:
             return HttpResponseRedirect(reverse('index'))
@@ -18,7 +18,7 @@ class TeamLeaderRequiredMixin(LoginRequiredMixin):
 
 # create a mixin that will be used to check if the user is a member of the team
 class TeamMemberRequiredMixin(LoginRequiredMixin):
-    login_url = 'home'
+    login_url = 'index'
     def dispatch(self, request, *args, **kwargs):
         if not Membership.objects.filter(member=self.request.user, team=self.get_object()).exists():
             return HttpResponseRedirect(reverse('index'))
@@ -26,7 +26,7 @@ class TeamMemberRequiredMixin(LoginRequiredMixin):
 
 
 class TeamsToJoinView(LoginRequiredMixin, ListView):
-    login_url = 'home'
+    login_url = 'signup'
     template_name = 'logedin/join.html'
     fields = []
     def get_queryset(self):
@@ -46,7 +46,7 @@ class ApplyTeamView(detail.SingleObjectMixin, View):
             else:
                 form = self.form_class()
                 return self.get(request, form, *args, **kwargs)
-        return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(reverse('signup'))
         
     def get(self, request, form, *args, **kwargs):
         
@@ -61,19 +61,19 @@ class ApplyTeamView(detail.SingleObjectMixin, View):
         return HttpResponseRedirect(reverse('index'))
 
 class ApplicationsView(LoginRequiredMixin, ListView):
-    login_url = 'home'
+    login_url = 'signup'
     template_name = 'logedin/applications.html'
     def get_queryset(self):
         return Application.objects.filter(applicant=self.request.user)
 # create a post method that will be used to apply to a team
 class AcceptApplicationView(TeamLeaderRequiredMixin, DetailView):
-    login_url = 'home'
+    login_url = 'signup'
     template_name = 'logedin/accept.html'
     model = Team
     fields = []
     # create a post method that will be used to apply to a team
-class DetailTeamView(LoginRequiredMixin, DetailView):
-    login_url = 'home'
+class DetailTeamView(TeamLeaderRequiredMixin, DetailView):
+    login_url = 'signup'
     model = Team
     template_name = 'logedin/detail.html'
 
@@ -83,14 +83,14 @@ class HomePageView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Team.objects.filter(teamLeader=self.request.user)
 class EditTeamView(TeamLeaderRequiredMixin, edit.UpdateView):
-    login_url = 'home'
+    login_url = 'signup'
     template_name = 'logedin/edit.html'
     fields = ['name', 'description']
     model = Team
     def get_success_url(self):
         return reverse("index")
 class CreateTeamView(LoginRequiredMixin, CreateView):
-    login_url = 'home'
+    login_url = 'signup'
     model = Team
     form_class = TeamForm
     template_name = 'logedin/createTeam.html'
