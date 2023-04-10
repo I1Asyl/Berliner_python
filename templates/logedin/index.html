@@ -13,16 +13,24 @@ Berliner
 
 {% block content %}
 <div class="container-fluid full-height">
-    <div class="row">
-        <div class="col-sm-12 col-lg-3 border border-dark rounded" id="team-names">
-            {% for team in object_list %}
+    <div class="row h-75">
+        <div class="col-sm-12 col-lg-3 border border-light rounded" id="team-names">
+            <div class="h-25" id="my-team-names">
+            {% for team in data.myTeams %}
                 <p><a class="btn">{{ team.name }}</a></p>
             {% endfor %}
+            </div>
             <a class="btn" href="{% url 'create'%}">Create a team</a>
+
+            <div id="member-team-names">
+                {% for membership in data.memberships %}
+                    <p><a class="btn">{{ membership.team.name }}</a></p>
+                {% endfor %}
+                </div>
         </div>
         <div class="col-sm-12 col-lg-6"></div>
-        <div class="col-sm-12 col-lg-3 border border-dark rounded" id="members">
-            {% for team in object_list %}
+        <div class="col-sm-12 col-lg-3 border border-light rounded" id="members">
+            {% for team in data.myTeams %}
             <div>
                 <p>{{ team.name }}</p>
                 {% for member in team.members.all %}

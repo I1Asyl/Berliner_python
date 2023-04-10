@@ -60,9 +60,9 @@ class ApplyTeamView(detail.SingleObjectMixin, View):
         form.save()
         return HttpResponseRedirect(reverse('index'))
 
-class ApplicationsView(LoginRequiredMixin, ListView):
+class AppliedView(LoginRequiredMixin, ListView):
     login_url = 'signup'
-    template_name = 'logedin/applications.html'
+    template_name = 'logedin/applied.html'
     def get_queryset(self):
         return Application.objects.filter(applicant=self.request.user)
 # create a post method that will be used to apply to a team
@@ -80,8 +80,13 @@ class DetailTeamView(TeamLeaderRequiredMixin, DetailView):
 class HomePageView(LoginRequiredMixin, ListView):
     login_url = 'home'
     template_name = 'logedin/index.html'
+    context_object_name = 'data'
     def get_queryset(self):
-        return Team.objects.filter(teamLeader=self.request.user)
+        mySet = {
+            'myTeams':Team.objects.filter(teamLeader=self.request.user),
+            'memberships':Membership.objects.filter(member=self.request.user, isLeader=False),
+        }
+        return mySet
 class EditTeamView(TeamLeaderRequiredMixin, edit.UpdateView):
     login_url = 'signup'
     template_name = 'logedin/edit.html'

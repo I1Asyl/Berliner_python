@@ -1,5 +1,5 @@
-let teamNames = document.getElementById("my-team-names");
-let members = document.getElementById("members");
+let teamNames = document.getElementById("application-team-names");
+let members = document.getElementById("info");
 
 let current = 0;
 for (let child in teamNames.children) {

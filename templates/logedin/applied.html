@@ -16,12 +16,16 @@ Berliner
     <div class="row">
         <div class="col-sm-12 col-lg-3 border border-dark rounded" id="team-names">
 
-            {% for application in object_list %}
-                    <p><a class="btn">{{ application.team.name }}</a></p>
-            {% endfor %}
+            <div class="h-25" id="application-team-names">
+                {% for application in object_list %}
+                <p><a class="btn">{{ application.team.name }}</a></p>
+                {% endfor %}
+            </div>
+
+
         </div>
         <div class="col-sm-12 col-lg-6"></div>
-        <div class="col-sm-12 col-lg-3 border border-dark rounded" id="members">
+        <div class="col-sm-12 col-lg-3 border border-dark rounded" id="info">
             {% for application in object_list %}
                 <div>
                 <p>{{ application.team.name }}</p>
@@ -34,6 +38,6 @@ Berliner
     </div>
 
 </div>
-<script src="{% static 'js/index.js' %}"></script>
+<script src="{% static 'js/applications.js' %}"></script>
 
 {% endblock %}
