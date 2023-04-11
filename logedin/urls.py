@@ -11,4 +11,5 @@ urlpatterns = [
     path('edit/<int:pk>/', views.EditTeamView.as_view(), name='edit'),
     path('detail/<int:pk>/', views.DetailTeamView.as_view(), name='detail'),
     path('apply/<int:pk>/', views.ApplyTeamView.as_view(), name='apply'),
+    path('createPost/<int:team>/', views.CreatePostView.as_view(), name='createPost'),
 ]

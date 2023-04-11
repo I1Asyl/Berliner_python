@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView, CreateView, DetailView, ListView, View, edit, detail
 from .forms import TeamForm, ApplicationTeamForm
-from .models import Team, Membership, Application
+from .models import Team, Membership, Application, Post
 from users.models import CustomUser
 from django import forms
 from django.urls import reverse
@@ -63,14 +63,22 @@ class ApplyTeamView(detail.SingleObjectMixin, View):
 class AppliedView(LoginRequiredMixin, ListView):
     login_url = 'signup'
     template_name = 'logedin/applied.html'
+    context_object_name = 'object'
     def get_queryset(self):
-        return Application.objects.filter(applicant=self.request.user)
+        mySet = {
+        "applications": Application.objects.filter(applicant=self.request.user)
+        }
+        return mySet
 # create a post method that will be used to apply to a team
 class ListApplicationsView(LoginRequiredMixin, ListView):
     login_url = 'signup'
     template_name = 'logedin/applications.html'
+    context_object_name = 'object'
     def get_queryset(self):
-        return Application.objects.filter(team__teamLeader=self.request.user)  
+        mySet = {
+        'applications': Application.objects.filter(team__teamLeader=self.request.user)  
+        }
+        return mySet
     def post(self, request, *args, **kwargs):
         for i in self.get_queryset():
             print(i.applicant.username)
@@ -86,20 +94,39 @@ class DetailTeamView(TeamLeaderRequiredMixin, DetailView):
     model = Team
     template_name = 'logedin/detail.html'
 
+class CreatePostView(TeamMemberRequiredMixin, CreateView):
+    login_url = 'signup'
+    model = Post
+    template_name = 'logedin/createPost.html'
+    fields = ['content']
+    def get_object(self):
+        return Team.objects.get(pk=self.kwargs['team'])
+    def get_success_url(self):
+        return reverse("index")
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.team = self.get_object()
+        return super().form_valid(form)
 class MyTeamsView(LoginRequiredMixin, ListView):
     login_url = 'home'
     template_name = 'logedin/myTeams.html'
-    context_object_name = 'data'
+    context_object_name = 'object'
     def get_queryset(self):
-        return Team.objects.filter(teamLeader=self.request.user)
-    
+        mySet = {
+        'teams': Team.objects.filter(teamLeader=self.request.user),
+        'posts': Post.objects.filter(team__teamLeader=self.request.user),
+        }
+        return mySet
 class HomePageView(LoginRequiredMixin, ListView):
     login_url = 'home'
     template_name = 'logedin/index.html'
     fields = []
+    context_object_name = 'object'
     def get_queryset(self):
-        return Team.objects.filter(members__username=self.request.user)
-
+        mySet = {
+            'teams': Team.objects.filter(members__username=self.request.user),
+        }
+        return mySet
 
 
 

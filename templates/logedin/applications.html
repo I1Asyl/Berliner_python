@@ -17,7 +17,7 @@ Berliner
         <div class="col-sm-12 col-lg-3 border border-dark rounded" id="team-names">
 
             <div class="h-25" id="application-team-names">
-                {% for application in object_list %}
+                {% for application in object.applications %}
                 <p><a class="btn">{{ application.applicant.username }}</a></p>
                 {% endfor %}
             </div>
@@ -26,7 +26,7 @@ Berliner
         </div>
         <div class="col-sm-12 col-lg-6"></div>
         <div class="col-sm-12 col-lg-3 border border-dark rounded" id="info">
-            {% for application in object_list %}
+            {% for application in object.applications %}
                 <div>
                 <p>{{ application.applicant.username }}</p>
                 <p>Applied to: {{ application.team.name }}</p>

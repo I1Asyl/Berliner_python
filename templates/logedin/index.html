@@ -16,20 +16,20 @@ Berliner
     <div class="row h-75">
         <div class="col-sm-12 col-lg-3 border border-light rounded" id="team-names">
             <div id="my-team-names">
-            {% for team in object_list %}
+            {% for team in object.teams %}
                 <p><a class="btn">{{ team.name }}</a></p>
             {% endfor %}
             </div>
-            <a class="btn" href="{% url 'create'%}">Create a team</a>
 
 
         </div>
         <div class="col-sm-12 col-lg-6"></div>
         <div class="col-sm-12 col-lg-3 border border-light rounded" id="members">
-            {% for team in object_list %}
+            {% for team in object.teams %}
             <div>
                 <p>Team: {{ team.name }}</p>
                 <p>Team leader: {{ team.teamLeader }}</p>
+                <p>Members:</p>
                 {% for member in team.members.all %}
                 <li class="">{{ member.username }}</li>
                 {% endfor %}
