@@ -3,7 +3,9 @@ from . import views
 
 urlpatterns = [
     path('', views.HomePageView.as_view(), name='index'),
-    path('applications/', views.AppliedView.as_view(), name='applied'),
+    path('myTeams/', views.MyTeamsView.as_view(), name='myTeams'),
+    path('applied/', views.AppliedView.as_view(), name='applied'),
+    path('application/', views.ListApplicationsView.as_view(), name='applications'),
     path('create/', views.CreateTeamView.as_view(), name='create'),
     path('join/', views.TeamsToJoinView.as_view(), name='join'),
     path('edit/<int:pk>/', views.EditTeamView.as_view(), name='edit'),

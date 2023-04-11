@@ -66,27 +66,43 @@ class AppliedView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Application.objects.filter(applicant=self.request.user)
 # create a post method that will be used to apply to a team
-class AcceptApplicationView(TeamLeaderRequiredMixin, DetailView):
+class ListApplicationsView(LoginRequiredMixin, ListView):
     login_url = 'signup'
-    template_name = 'logedin/accept.html'
-    model = Team
-    fields = []
+    template_name = 'logedin/applications.html'
+    def get_queryset(self):
+        return Application.objects.filter(team__teamLeader=self.request.user)  
+    def post(self, request, *args, **kwargs):
+        for i in self.get_queryset():
+            print(i.applicant.username)
+            if i.applicant.username in request.POST:
+                Membership.objects.create(member = i.applicant, team = i.team, isLeader = False)
+                Application.objects.get(applicant = i.applicant, team = i.team).delete()
+                return HttpResponseRedirect(reverse('applications'))
+        return HttpResponseRedirect(reverse('index')) 
+        
     # create a post method that will be used to apply to a team
 class DetailTeamView(TeamLeaderRequiredMixin, DetailView):
     login_url = 'signup'
     model = Team
     template_name = 'logedin/detail.html'
 
+class MyTeamsView(LoginRequiredMixin, ListView):
+    login_url = 'home'
+    template_name = 'logedin/myTeams.html'
+    context_object_name = 'data'
+    def get_queryset(self):
+        return Team.objects.filter(teamLeader=self.request.user)
+    
 class HomePageView(LoginRequiredMixin, ListView):
     login_url = 'home'
     template_name = 'logedin/index.html'
-    context_object_name = 'data'
+    fields = []
     def get_queryset(self):
-        mySet = {
-            'myTeams':Team.objects.filter(teamLeader=self.request.user),
-            'memberships':Membership.objects.filter(member=self.request.user, isLeader=False),
-        }
-        return mySet
+        return Team.objects.filter(members__username=self.request.user)
+
+
+
+
 class EditTeamView(TeamLeaderRequiredMixin, edit.UpdateView):
     login_url = 'signup'
     template_name = 'logedin/edit.html'

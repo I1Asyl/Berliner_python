@@ -23,6 +23,8 @@ class Application(models.Model):
     applicant = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     comment = models.CharField(default="", max_length=200)
+    def __str__(self) -> str:
+        return self.applicant.username + " applied to " + self.team.name
 
 class Membership(models.Model):
     member = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -31,4 +33,12 @@ class Membership(models.Model):
     #isLeader is a boolean field that is true if the member is the team leader
     isLeader = models.BooleanField(default=False)
     
+    def __str__(self) -> str:
+        return self.member.username + " is in " + self.team.name + " isLeader: " + str(self.isLeader)
 
+class Posts(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    content = models.CharField(max_length=200)
+    def __str__(self) -> str:
+        return self.author.username + " posted in " + self.team.name + ": " + self.content
