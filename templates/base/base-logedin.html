@@ -1,0 +1,39 @@
+{% extends '../base/base.html' %}
+{% load static %}
+{% block header %}
+<!-- Link for "font-awesome" from cdnjs.com-->
+<link rel="stylesheet" href="{% static 'css/logedin.css' %}">
+{% endblock %}
+{% block title %}
+Berliner
+{% endblock %}
+
+{% block nav %}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid full-height">
+    <div class="row">
+        <div class="h-75 col-sm-12 bg-light col-lg-2 border border-light rounded">
+            <div id="team-names">
+                {% block menu %}
+                {% endblock %}
+            </div>
+
+
+        </div>
+        <div class="col-sm-12 offset-lg-1 col-lg-5">
+            {% block posts %}
+            {% endblock %}         
+        </div>
+        <div class="col-sm-12 offset-lg-1 col-lg-3 border border-light rounded" id="members">
+            {% block info %}
+            {% endblock %}    
+        </div>
+    </div>
+</div>
+
+{% block script %}
+{% endblock %}
+
+{% endblock %}
