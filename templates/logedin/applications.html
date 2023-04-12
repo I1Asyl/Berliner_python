@@ -14,11 +14,11 @@ Berliner
 {% block content %}
 <div class="container-fluid full-height">
     <div class="row">
-        <div class="col-sm-12 col-lg-3 border border-dark rounded" id="team-names">
+        <div class="h-75 col-sm-12 bg-light col-lg-2 border border-light rounded">
 
-            <div class="h-25" id="application-team-names">
+            <div id="applications">
                 {% for application in object.applications %}
-                <p><a class="btn">{{ application.applicant.username }}</a></p>
+                <p class="application" data-details="{{ application }}"><a class="btn">{{ application }}</a></p>
                 {% endfor %}
             </div>
 
@@ -27,7 +27,7 @@ Berliner
         <div class="col-sm-12 col-lg-6"></div>
         <div class="col-sm-12 col-lg-3 border border-dark rounded" id="info">
             {% for application in object.applications %}
-                <div>
+                <div id="{{ application }}">
                 <p>{{ application.applicant.username }}</p>
                 <p>Applied to: {{ application.team.name }}</p>
                 <p>Comment: {{ application.comment }}</p>

@@ -13,11 +13,11 @@ Berliner
 
 {% block content %}
 <div class="container-fluid full-height">
-    <div class="row h-75">
-        <div class="col-sm-12 col-lg-3 border border-light rounded" id="team-names">
-            <div class="" id="my-team-names">
+    <div class="row">
+        <div class="h-75 col-sm-12 bg-light col-lg-2 border border-light rounded">
+            <div id="team-names">
             {% for team in object.teams %}
-                <p><a class="btn">{{ team.name }}</a></p>
+                <p class="team-name" data-details="{{ team.name }}"><a class="btn">{{ team.name }}</a></p>
             {% endfor %}
             </div>
 
@@ -30,7 +30,7 @@ Berliner
         </div>
         <div class="col-sm-12 offset-lg-1 col-lg-3 border border-light rounded" id="members">
             {% for team in object.teams %}
-            <div>
+            <div id="{{ team.name }}">
                 <p>Team: {{ team.name }}</p>
                 <p>Team members: </p>
                 {% for member in team.members.all %}

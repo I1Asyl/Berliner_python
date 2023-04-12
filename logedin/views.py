@@ -125,6 +125,7 @@ class HomePageView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         mySet = {
             'teams': Team.objects.filter(members__username=self.request.user),
+            'posts': Post.objects.filter(team__members__username=self.request.user)
         }
         return mySet
 
