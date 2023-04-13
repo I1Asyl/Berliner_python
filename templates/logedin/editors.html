@@ -1,0 +1,6 @@
+{% extends '../logedin/index.html' %}
+
+{% block editor %}
+    <a class="btn" href="{% url 'edit' team.pk %}">Edit</a>   
+    <a class="btn" href="{% url 'createPost' team.pk %}">Post</a>    
+{% endblock %}

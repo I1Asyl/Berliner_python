@@ -1,9 +1,29 @@
-.team-name:hover{
+#team-names .team-name:hover{
     text-decoration: none;
     background-color: #b7bcbdd5;
 }
 
-.application:hover{
+#applications .application:hover{
     text-decoration: none;
     background-color: #b7bcbdd5;
+}
+
+body{
+    background: url("/static/images/aaa.jpg");
+    background-color: rgb(253, 253, 253);
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: multiply;
+}
+.post-header{
+    margin-top: 5px;
+    text-align: center;
+}
+.post-body{
+    margin: 0 20px;
+}
+.post:hover{
+    text-decoration: none;
+    background-color: #d8ddded5;
 }

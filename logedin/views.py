@@ -23,7 +23,12 @@ class TeamMemberRequiredMixin(LoginRequiredMixin):
         if not Membership.objects.filter(member=self.request.user, team=self.get_object()).exists():
             return HttpResponseRedirect(reverse('index'))
         return super().dispatch(request, *args, **kwargs)
-
+class IsEditorRequiredMixin(LoginRequiredMixin):
+    login_url = 'index'
+    def dispatch(self, request, *args, **kwargs):
+        if not Membership.objects.filter(member=self.request.user, team=self.get_object(), isEditor=True).exists():
+            return HttpResponseRedirect(reverse('index'))
+        return super().dispatch(request, *args, **kwargs)
 
 class TeamsToJoinView(LoginRequiredMixin, ListView):
     login_url = 'signup'
@@ -103,11 +108,11 @@ class DetailUserView(LoginRequiredMixin, edit.UpdateView):
         return reverse("user" , kwargs={'pk': self.request.user.pk})
                 
 
-class CreatePostView(TeamMemberRequiredMixin, CreateView):
+class CreatePostView(IsEditorRequiredMixin, CreateView):
     login_url = 'signup'
     model = Post
     template_name = 'logedin/createPost.html'
-    fields = ['content']
+    fields = ['public', 'content']
     def get_object(self):
         return Team.objects.get(pk=self.kwargs['team'])
     def get_success_url(self):
@@ -118,11 +123,13 @@ class CreatePostView(TeamMemberRequiredMixin, CreateView):
         return super().form_valid(form)
 class MyTeamsView(LoginRequiredMixin, ListView):
     login_url = 'home'
-    template_name = 'logedin/myTeams.html'
+    template_name = 'logedin/editors.html'
     context_object_name = 'object'
     def get_queryset(self):
+        teams = Team.objects.filter(teamLeader=self.request.user)
+        isEditor = teams.count() * [True]
         mySet = {
-        'teams': Team.objects.filter(teamLeader=self.request.user),
+        'teams': teams,
         'posts': Post.objects.filter(team__teamLeader=self.request.user),
         }
         return mySet
@@ -132,9 +139,11 @@ class HomePageView(LoginRequiredMixin, ListView):
     fields = []
     context_object_name = 'object'
     def get_queryset(self):
+        teams = Team.objects.filter(members__username=self.request.user)
+
         mySet = {
-            'teams': Team.objects.filter(members__username=self.request.user),
-            'posts': Post.objects.filter(team__members__username=self.request.user)
+            'teams': teams,
+            'posts': Post.objects.filter(team__members__username=self.request.user),
         }
         return mySet
 
@@ -157,7 +166,7 @@ class CreateTeamView(LoginRequiredMixin, CreateView):
         if form.is_valid():
             form.instance.teamLeader = self.request.user
             form.instance.save()
-            Membership.objects.create(member = form.instance.teamLeader, team = form.instance, isLeader = True)
+            Membership.objects.create(member = form.instance.teamLeader, team = form.instance, isLeader = True, isEditor = True)
             return HttpResponseRedirect(self.get_success_url())
         else:
             return render(request, self.template_name, {'form' : form})

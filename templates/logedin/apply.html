@@ -1,44 +1,18 @@
-{% extends '../base/base.html' %}
+{% extends 'base/base_registration.html' %}
 {% load static %}
-{% block header %}
-<!-- Link for "font-awesome" from cdnjs.com-->
-<link rel="stylesheet" href="{% static 'css/index.css' %}">
-{% endblock %}
-{% block title %}
-Berliner
+
+
+{% block formName %}
+Apply to a team
 {% endblock %}
 
-{% block nav %}
-{% endblock %}
-
-{% block content %}
-<div class="container-fluid full-height">
-    <div class="row">
-        <div class="col-sm-12 col-lg-4 border border-light">
-            <p>{{ team.teamLeader }}</p>
-
-            <form action="" method="post">
-            {% csrf_token %}
-            {{ form.comment.label }}
-            {{ form.comment }}
-            {{ form.errors }}
-            {{ form.non_field_errors }}            
-            <button type="submit" class="btn btn-primary">Apply</button>
-            </form>
-
-
-            <a class="btn" href="{% url 'index'%}">Back</a>
+{% block form %}
+    {% for field in form %}
+        <div class="form-group">
+            {{ field.label }}
+            {{ field }}
+            {{ field.errors }}
         </div>
-        <div class="col-sm-12 col-lg-4"></div>
-        <div class="col-sm-12 col-lg-4">
-            {% for member in team.members.all %}
-            <li class="">{{ member.username }}</li>
-            {% empty %}
-            <li class="">Sorry, no users in this group.</li>
-            {% endfor %}
-        </div>
-    </div>
-
-</div>
-
+        <button class="btn btn-primary">Apply</button>
+    {% endfor %}
 {% endblock %}

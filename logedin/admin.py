@@ -6,7 +6,7 @@ class TeamAdmin(admin.ModelAdmin):
     fields = ['name', 'description', 'teamLeader']
 
 class MembershipAdmin(admin.ModelAdmin):
-    fields = ['member', 'team']   
+    fields = ['member', 'team', 'isLeader', 'isEditor']   
 
 class ApplicationAdmin(admin.ModelAdmin):
     fields = ['member', 'team']  

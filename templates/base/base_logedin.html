@@ -14,19 +14,18 @@ Berliner
 {% block content %}
 <div class="container-fluid full-height">
     <div class="row">
-        <div class="h-75 col-sm-12 bg-light col-lg-2 border border-light rounded">
-            <div id="team-names">
+        <div class="h-75 col-sm-12 offset-lg-2 col-lg-2 bg-light border border-light rounded">
+            
+            
                 {% block menu %}
                 {% endblock %}
-            </div>
-
 
         </div>
-        <div class="col-sm-12 offset-lg-1 col-lg-5">
+        <div class="col-sm-12 col-lg-4">
             {% block main %}
-            {% endblock %}         
+            {% endblock %}    
         </div>
-        <div class="col-sm-12 offset-lg-1 col-lg-3 border border-light rounded" id="members">
+        <div class="col-sm-12 col-lg-2 border border-light rounded bg-light" id="members">
             {% block info %}
             {% endblock %}    
         </div>

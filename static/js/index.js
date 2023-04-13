@@ -11,8 +11,14 @@ for (let child of teamNames.children) {
             details.style.display = "none";
             current.style.backgroundColor = "transparent";
         }
-        current = child;
-        console.log(current);
+        if(current == child) {
+            current = -1;
+        }
+
+        else {
+            current = child;
+            console.log(current);
+        }
 
         details = document.getElementById(current.dataset.details);
         details.style.display = "block"; 

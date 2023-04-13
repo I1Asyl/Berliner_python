@@ -1,16 +1,27 @@
-{% extends 'base/base-logedin.html' %}
+{% extends 'base/base_logedin.html' %}
 {% load static %}
 
 {% block menu %}
-    {% for team in object.teams %}
-        <p class="team-name" data-details="{{ team.name }}"><a class="btn">{{ team.name }}</a></p>
-    {% endfor %}
+    <div id="team-names">
+        {% for team in object.teams %}
+            <p class="team-name" data-details="{{ team.name }}"><a class="btn">{{ team.name }}</a></p>
+        {% empty %}
+            <p class="team-name" data-details="No teams"><a class="btn">No teams</a></p> 
+        {% endfor %}
+    </div>
 {% endblock %}
 
 {% block main %}
     {% for post in object.posts %}
-        <p>{{ post.author }} from {{ post.team.name }}: </p>
-        <p>{{ post.content }}</p>
+    <div class="post border border-light">
+        <p class="post-header"><b>{{ post.author.first_name }} {{ post.author.last_name }}</b> @<i>{{ post.team.name }}:</i> </p>
+        <p class="post-body">{{ post.content }}</p>
+        <p class="post-footer"></p>
+    </div>
+    {% empty %}
+    <div class="post border border-light">
+        <p class="post-header"><b>No posts yet</b></p>
+    </div>
     {% endfor %}    
 {% endblock %}
 
@@ -21,12 +32,18 @@
         <p>Team leader: {{ team.teamLeader }}</p>
         <p>Members:</p>
         {% for member in team.members.all %}
+
         <li class="">{{ member.username }}</li>
         {% endfor %}
         <a class="btn" href="{% url 'detail' team.pk %}">Details</a>
-        <a class="btn" href="{% url 'edit' team.pk %}">Edit</a>
+        {% block editor %}
+        {% endblock %}
     </div>    
-    {% endfor %}        
+    {% empty %}
+        <div id="No teams">
+            <p>Team: No teams</p>
+        </div> 
+    {% endfor %}       
 {% endblock %}
 
 {% block script %}

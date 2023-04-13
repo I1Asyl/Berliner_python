@@ -1,15 +1,28 @@
-{% extends 'base/base-logedin.html' %}
+{% extends 'base/base_logedin.html' %}
 {% load static %}
 
 {% block menu %}
     <div id="applications">
         {% for application in object.applications %}
         <p class="application" data-details="{{ application }}"><a class="btn">{{ application }}</a></p>
+        {% empty %}
+        <p class="application" data-details="No applications"><a class="btn">No applications</a></p>
         {% endfor %}
     </div>
 {% endblock %}
 
-{% block main %}  
+{% block main %}
+    {% for post in object.posts %}
+    <div class="post border border-light">
+        <p class="post-header"><b>{{ post.author.first_name }} {{ post.author.last_name }}</b> @<i>{{ post.team.name }}:</i> </p>
+        <p class="post-body">{{ post.content }}</p>
+        <p class="post-footer"></p>
+    </div>
+    {% empty %}
+    <div class="post border border-light">
+        <p class="post-header"><b>No posts in common teams yet</b></p>
+    </div>
+    {% endfor %}    
 {% endblock %}
 
 {% block info %}
@@ -22,6 +35,10 @@
                 {% csrf_token %}
                 <button class="btn btn-primary" name="{{ application.applicant.username }}" type="submit"> Accept</button>
             </form>
+        </div>
+    {% empty %}
+        <div id="No applications">
+            <p>No applications</p>
         </div>
     {% endfor %}        
 {% endblock %}

@@ -1,8 +1,7 @@
-let teamNames = document.getElementById("applications");
-let members = document.getElementById("members");
+let applications = document.getElementById("applications");
 
 let current = -1;
-for (let child of teamNames.children) {
+for (let child of applications.children) {
     let details = document.getElementById(child.dataset.details);
     details.style.display = "none";
     child.onclick = function() {
@@ -11,8 +10,14 @@ for (let child of teamNames.children) {
             details.style.display = "none";
             current.style.backgroundColor = "transparent";
         }
-        current = child;
-        console.log(current);
+        if(current == child) {
+            current = -1;
+        }
+
+        else {
+            current = child;
+            console.log(current);
+        }
 
         details = document.getElementById(current.dataset.details);
         details.style.display = "block"; 

@@ -32,7 +32,8 @@ class Membership(models.Model):
     
     #isLeader is a boolean field that is true if the member is the team leader
     isLeader = models.BooleanField(default=False)
-    
+    isEditor = models.BooleanField(default=False)
+
     def __str__(self) -> str:
         return self.member.username + " is in " + self.team.name + " isLeader: " + str(self.isLeader)
 
@@ -40,5 +41,6 @@ class Post(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     content = models.TextField(max_length=200)
+    public = models.BooleanField(default=False)
     def __str__(self) -> str:
         return self.author.username + " posted in " + self.team.name + ": " + self.content
