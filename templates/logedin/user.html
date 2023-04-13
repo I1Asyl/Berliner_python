@@ -1,0 +1,23 @@
+{% extends 'base/base-logedin.html' %}
+
+
+{% block menu %}
+    <div id="menu">
+        <p><a class="btn">Personal</a></p>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <div id="info">
+        <form method="post">
+        {% csrf_token %}
+        {% for details in form %} 
+            <p>{{ details.label }}</p>
+            <p>{{ details }}</p>
+            <p>{{ details.errors }}</p>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+{% endblock %} 
+

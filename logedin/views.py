@@ -80,7 +80,7 @@ class ListApplicationsView(LoginRequiredMixin, ListView):
         }
         return mySet
     def post(self, request, *args, **kwargs):
-        for i in self.get_queryset():
+        for i in self.get_queryset()['applications']:
             print(i.applicant.username)
             if i.applicant.username in request.POST:
                 Membership.objects.create(member = i.applicant, team = i.team, isLeader = False)
@@ -93,6 +93,15 @@ class DetailTeamView(TeamLeaderRequiredMixin, DetailView):
     login_url = 'signup'
     model = Team
     template_name = 'logedin/detail.html'
+
+class DetailUserView(LoginRequiredMixin, edit.UpdateView):
+    login_url = 'signup'
+    model = CustomUser
+    template_name = 'logedin/user.html'
+    fields = ['username', 'email', 'first_name', 'last_name']
+    def get_success_url(self):
+        return reverse("user" , kwargs={'pk': self.request.user.pk})
+                
 
 class CreatePostView(TeamMemberRequiredMixin, CreateView):
     login_url = 'signup'

@@ -7,7 +7,7 @@ from users.models import CustomUser
 #model called Team
 class Team(models.Model):
     #teamLeader is a foreign key to the CustomUser model
-    teamLeader = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="createdTeams", related_query_name="createdTeam", to_field='username')
+    teamLeader = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="createdTeams", related_query_name="createdTeam")
 
     #members is a many to many field to the CustomUser model for team members through the Membership model
     members = models.ManyToManyField(CustomUser, through='Membership', through_fields=('team', 'member'), related_name="memberTeams", related_query_name="memberTeam")

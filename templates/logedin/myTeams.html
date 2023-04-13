@@ -1,49 +1,35 @@
-{% extends '../base/base.html' %}
+{% extends 'base/base-logedin.html' %}
 {% load static %}
-{% block header %}
-<!-- Link for "font-awesome" from cdnjs.com-->
-<link rel="stylesheet" href="{% static 'css/index.css' %}">
-{% endblock %}
-{% block title %}
-Berliner
-{% endblock %}
 
-{% block nav %}
+{% block menu %}
+    {% for team in object.teams %}
+        <p class="team-name" data-details="{{ team.name }}"><a class="btn">{{ team.name }}</a></p>
+    {% endfor %}
 {% endblock %}
 
-{% block content %}
-<div class="container-fluid full-height">
-    <div class="row">
-        <div class="h-75 col-sm-12 bg-light col-lg-2 border border-light rounded">
-            <div id="team-names">
-            {% for team in object.teams %}
-                <p class="team-name" data-details="{{ team.name }}"><a class="btn">{{ team.name }}</a></p>
-            {% endfor %}
-            </div>
+{% block main %}
+    {% for post in object.posts %}
+        <p>{{ post.author }} from {{ post.team.name }}: </p>
+        <p>{{ post.content }}</p>
+    {% endfor %}    
+{% endblock %}
 
-        </div>
-        <div class="col-sm-12 offset-lg-1 col-lg-4">
-            {% for post in object.posts %}
-                <p>{{ post.author }} from {{ post.team.name }}: </p>
-                <p>{{ post.content }}</p>
-            {% endfor %}
-        </div>
-        <div class="col-sm-12 offset-lg-1 col-lg-3 border border-light rounded" id="members">
-            {% for team in object.teams %}
-            <div id="{{ team.name }}">
-                <p>Team: {{ team.name }}</p>
-                <p>Team members: </p>
-                {% for member in team.members.all %}
-                <li class="">{{ member.username }}</li>
-                {% endfor %}
-                <a class="btn" href="{% url 'detail' team.pk %}">Details</a>
-                <a class="btn" href="{% url 'edit' team.pk %}">Edit</a>
-                <a class="btn" href="{% url 'createPost' team.pk %}">Add a post</a>
-            </div>    
+{% block info %}
+    {% for team in object.teams %}
+    <div id="{{ team.name }}">
+        <p>Team: {{ team.name }}</p>
+        <p>Team leader: {{ team.teamLeader }}</p>
+        <p>Members:</p>
+        {% for member in team.members.all %}
+        <li class="">{{ member.username }}</li>
+        {% endfor %}
+        <a class="btn" href="{% url 'detail' team.pk %}">Details</a>
+        <a class="btn" href="{% url 'edit' team.pk %}">Edit</a>
+        <a class="btn" href="{% url 'createPost' team.pk %}">Post</a>
+    </div>    
+    {% endfor %}        
+{% endblock %}
 
-            {% endfor %}        
-        </div>
-    </div>
-</div>
+{% block script %}
 <script src="{% static 'js/index.js' %}"></script>
 {% endblock %}

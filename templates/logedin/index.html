@@ -7,7 +7,7 @@
     {% endfor %}
 {% endblock %}
 
-{% block posts %}
+{% block main %}
     {% for post in object.posts %}
         <p>{{ post.author }} from {{ post.team.name }}: </p>
         <p>{{ post.content }}</p>
