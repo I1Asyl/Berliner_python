@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block menu %}
-    <div id="applications">
+    <div id="menu">
         {% for application in object.applications %}
         <p class="application" data-details="{{ application }}"><a class="btn">{{ application }}</a></p>
         {% empty %}
@@ -12,22 +12,30 @@
 {% endblock %}
 
 {% block main %}
-    {% for post in object.posts %}
-    <div class="post border border-light">
-        <p class="post-header"><b>{{ post.author.first_name }} {{ post.author.last_name }}</b> @<i>{{ post.team.name }}:</i> </p>
-        <p class="post-body">{{ post.content }}</p>
-        <p class="post-footer"></p>
+    {% for application in object.applications %}
+    <div class="{{ application }}">
+        {% for post in application.getPublicPosts %}
+        <div class="post border border-light">
+            <p class="post-header"><b>{{ post.author.first_name }} {{ post.author.last_name }}</b> @<i>{{ post.team.name }}:</i> </p>
+            <p class="post-body">{{ post.content }}</p>
+            <p class="post-footer"></p>
+        </div>
+        {% empty %}
+        <div class="post border border-light">
+            <p class="post-header"><b>No public posts</b></p>
+        </div>
+        {% endfor %}
     </div>
     {% empty %}
     <div class="post border border-light">
-        <p class="post-header"><b>No posts in common teams yet</b></p>
+        <p class="post-header"><b>No applications posts</b></p>
     </div>
     {% endfor %}    
 {% endblock %}
 
 {% block info %}
     {% for application in object.applications %}
-        <div id="{{ application }}">
+        <div class="{{ application }}">
             <p>{{ application.applicant.username }}</p>
             <p>Applied to: {{ application.team.name }}</p>
             <p>Comment: {{ application.comment }}</p>
@@ -43,6 +51,3 @@
     {% endfor %}        
 {% endblock %}
 
-{% block script %}
-<script src="{% static 'js/applications.js' %}"></script>
-{% endblock %}

@@ -81,14 +81,14 @@ class ListApplicationsView(LoginRequiredMixin, ListView):
     context_object_name = 'object'
     def get_queryset(self):
         mySet = {
-        'applications': Application.objects.filter(team__teamLeader=self.request.user)  
+        'applications': Application.objects.filter(team__teamLeader=self.request.user),
         }
         return mySet
     def post(self, request, *args, **kwargs):
         for i in self.get_queryset()['applications']:
             print(i.applicant.username)
             if i.applicant.username in request.POST:
-                Membership.objects.create(member = i.applicant, team = i.team, isLeader = False)
+                Membership.objects.create(member = i.applicant, team = i.team, isLeader = False, isEditor = False)
                 Application.objects.get(applicant = i.applicant, team = i.team).delete()
                 return HttpResponseRedirect(reverse('applications'))
         return HttpResponseRedirect(reverse('index')) 

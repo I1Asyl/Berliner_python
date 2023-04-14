@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block menu %}
-    <div id="team-names">
+    <div id="menu">
         {% for team in object.teams %}
             <p class="team-name" data-details="{{ team.name }}"><a class="btn">{{ team.name }}</a></p>
         {% empty %}
@@ -27,7 +27,7 @@
 
 {% block info %}
     {% for team in object.teams %}
-    <div id="{{ team.name }}">
+    <div class="{{ team.name }}">
         <p>Team: {{ team.name }}</p>
         <p>Team leader: {{ team.teamLeader }}</p>
         <p>Members:</p>
@@ -44,8 +44,4 @@
             <p>Team: No teams</p>
         </div> 
     {% endfor %}       
-{% endblock %}
-
-{% block script %}
-<script src="{% static 'js/index.js' %}"></script>
 {% endblock %}

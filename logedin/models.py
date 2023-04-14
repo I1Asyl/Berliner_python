@@ -25,6 +25,9 @@ class Application(models.Model):
     comment = models.CharField(default="", max_length=200)
     def __str__(self) -> str:
         return self.applicant.username + " applied to " + self.team.name
+    
+    def getPublicPosts(self):
+        return Post.objects.filter(author=self.applicant, public=True)
 
 class Membership(models.Model):
     member = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
