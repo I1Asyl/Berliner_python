@@ -1,43 +1,53 @@
-{% extends '../base/base.html' %}
+{% extends 'base/base_logedin.html' %}
 {% load static %}
-{% block header %}
-<!-- Link for "font-awesome" from cdnjs.com-->
-<link rel="stylesheet" href="{% static 'css/index.css' %}">
-{% endblock %}
-{% block title %}
-Berliner
-{% endblock %}
 
-{% block nav %}
-{% endblock %}
-
-{% block content %}
-<div class="container-fluid full-height">
-    <div class="row">
-        <div class="col-sm-12 col-lg-3 border border-dark rounded" id="team-names">
-
-            <div class="h-25" id="application-team-names">
-                {% for application in object.applications %}
-                <p><a class="btn">{{ application.team.name }}</a></p>
-                {% endfor %}
-            </div>
-
-
-        </div>
-        <div class="col-sm-12 col-lg-6"></div>
-        <div class="col-sm-12 col-lg-3 border border-dark rounded" id="info">
-            {% for application in object.applications %}
-                <div>
-                <p>{{ application.team.name }}</p>
-                <p>Teamleader: {{ application.team.teamLeader }}</p>
-                <p>Your comment: {{ application.comment }}</p>
-                <a class="btn" href="{% url 'detail' application.team.pk %}">Details</a>
-                </div>
-            {% endfor %}            
-        </div>
+{% block menu %}
+    <div id="menu">
+        {% for application in object.applications %}
+        <p class="application" data-details="{{ application }}"><a class="btn">{{ application }}</a></p>
+        {% empty %}
+        <p class="application" data-details="No applications"><a class="btn">No applications</a></p>
+        {% endfor %}
     </div>
-
-</div>
-<script src="{% static 'js/applications.js' %}"></script>
-
 {% endblock %}
+
+{% block main %}
+    {% for application in object.applications %}
+    <div class="{{ application }}">
+        {% for post in application.getPublicPosts %}
+        <div class="post border border-light">
+            <p class="post-header"><b>{{ post.author.first_name }} {{ post.author.last_name }}</b> @<i>{{ post.team.name }}:</i> </p>
+            <p class="post-body">{{ post.content }}</p>
+            <p class="post-footer"></p>
+        </div>
+        {% empty %}
+        <div class="post border border-light">
+            <p class="post-header"><b>This team has no public post</b></p>
+        </div>
+        {% endfor %}
+    </div>
+    {% empty %}
+    <div class="post border border-light">
+        <p class="post-header"><b>No team has public post</b></p>
+    </div>
+    {% endfor %}    
+{% endblock %}
+
+{% block info %}
+    {% for application in object.applications %}
+        <div class="{{ application }}">
+            <p>{{ application.applicant.username }}</p>
+            <p>Applied to: {{ application.team.name }}</p>
+            <p>Comment: {{ application.comment }}</p>
+            <form method="post">
+                {% csrf_token %}
+                <button class="btn btn-primary" name="{{ application.applicant.username }}" type="submit"> Accept</button>
+            </form>
+        </div>
+    {% empty %}
+        <div id="No applications">
+            <p>No applications</p>
+        </div>
+    {% endfor %}        
+{% endblock %}
+

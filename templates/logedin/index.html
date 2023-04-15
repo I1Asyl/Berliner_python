@@ -16,7 +16,7 @@
     <div class="post border border-light">
         <p class="post-header"><b>{{ post.author.first_name }} {{ post.author.last_name }}</b> @<i>{{ post.team.name }}:</i> </p>
         <p class="post-body">{{ post.content }}</p>
-        <p class="post-footer"></p>
+        <p class="post-footer">{{ post.date }} {% block comments %} {% endblock %}</p>
     </div>
     {% empty %}
     <div class="post border border-light">
@@ -26,16 +26,28 @@
 {% endblock %}
 
 {% block info %}
+
     {% for team in object.teams %}
     <div class="{{ team.name }}">
         <p>Team: {{ team.name }}</p>
-        <p>Team leader: {{ team.teamLeader }}</p>
-        <p>Members:</p>
-        {% for member in team.members.all %}
+        <p>Description: {{ team.description }}</p>
+        <figure>
+            <figcaption>Members:</figcaption>
+            <dl>
+                {% for membership in team.membership_set.all %}
 
-        <li class="">{{ member.username }}</li>
-        {% endfor %}
-        <a class="btn" href="{% url 'detail' team.pk %}">Details</a>
+                    <dt class="">{{ membership.member }}</dt>
+
+                    {% if membership.isLeader %} 
+                        <dd class="">{{ membership.member }} is a team leader</dd>
+                    {% elif membership.isEditor %}
+                        <dd class="">{{ membership.member }} is a team editor</dd>
+                    {% endif %}
+
+                {% endfor %}
+            </dl>
+        </figure>
+        
         {% block editor %}
         {% endblock %}
     </div>    

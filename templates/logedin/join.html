@@ -1,32 +1,43 @@
-{% extends '../base/base.html' %}
+{% extends '../base/base_logedin.html' %}
 {% load static %}
-{% block header %}
-<!-- Link for "font-awesome" from cdnjs.com-->
-<link rel="stylesheet" href="{% static 'css/index.css' %}">
-{% endblock %}
-{% block title %}
-Berliner
-{% endblock %}
 
-{% block nav %}
-{% endblock %}
+{% block menu %}
 
-{% block content %}
-<div class="container-fluid full-height">
-    <div class="row">
-        <div class="col-sm-12 col-lg-4 border border-light">
-            {% for team in object_list %}
-                <p>{{ team.name }}</p>
-                <p><a class="btn btn-primary" href="{% url 'apply' team.pk %}">Apply</a><a class="btn">Details</a></p>  
-            {% endfor %}
-            <a class="btn" href="{% url 'index'%}">back</a>
-        </div>
-        <div class="col-sm-12 col-lg-4"></div>
-        <div class="col-sm-12 col-lg-4">
-      
-        </div>
-    </div>
-
+<div id="menu">
+    {% for team in object.teams %}
+        <p class="team-name" data-details="{{ team.name }}"><a class="btn">{{ team.name }}</a></p>
+    {% empty %}
+        <p class="team-name" data-details="No teams"><a class="btn">No teams</a></p> 
+    {% endfor %}
 </div>
 
+{% endblock %}
+
+{% block main %}
+    {% for post in object.posts %}
+    <div class="post border border-light">
+        <p class="post-header"><b>{{ post.author.first_name }} {{ post.author.last_name }}</b> @<i>{{ post.team.name }}:</i> </p>
+        <p class="post-body">{{ post.content }}</p>
+        <p class="post-footer">{{ post.date }} {% block comments %} {% endblock %}</p>
+    </div>
+    {% empty %}
+    <div class="post border border-light">
+        <p class="post-header"><b>No public posts</b></p>
+    </div>
+    {% endfor %}    
+{% endblock %}
+
+{% block info %}
+
+    {% for team in object.teams %}
+    <div class="{{ team.name }}">
+        <p>Team: {{ team.name }}</p>
+        <p>Description: {{ team.description }}</p>
+        <p><a class="btn btn-primary" href="{% url 'apply' team.pk %}">Apply</a><a class="btn">Details</a></p>  
+    </div>    
+    {% empty %}
+        <div id="No teams">
+            <p>Team: No teams</p>
+        </div> 
+    {% endfor %}       
 {% endblock %}

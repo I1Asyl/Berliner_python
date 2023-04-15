@@ -14,7 +14,7 @@
 {% block main %}
     {% for application in object.applications %}
     <div class="{{ application }}">
-        {% for post in application.getPublicPosts %}
+        {% for post in application.team.get_posts %}
         <div class="post border border-light">
             <p class="post-header"><b>{{ post.author.first_name }} {{ post.author.last_name }}</b> @<i>{{ post.team.name }}:</i> </p>
             <p class="post-body">{{ post.content }}</p>
@@ -28,7 +28,7 @@
     </div>
     {% empty %}
     <div class="post border border-light">
-        <p class="post-header"><b>No applications posts</b></p>
+        <p class="post-header"><b>No apllicant have posts</b></p>
     </div>
     {% endfor %}    
 {% endblock %}

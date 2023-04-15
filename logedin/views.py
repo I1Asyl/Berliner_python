@@ -34,8 +34,12 @@ class TeamsToJoinView(LoginRequiredMixin, ListView):
     login_url = 'signup'
     template_name = 'logedin/join.html'
     fields = []
+    context_object_name = 'object'
     def get_queryset(self):
-        return Team.objects.exclude(members=self.request.user).exclude(applicants=self.request.user)
+        mySet = {
+        'teams': Team.objects.exclude(members=self.request.user).exclude(applicants=self.request.user)
+        }
+        return mySet
     # create a post method that will be used to apply to a team
 
 class ApplyTeamView(detail.SingleObjectMixin, View):
@@ -88,7 +92,7 @@ class ListApplicationsView(LoginRequiredMixin, ListView):
         for i in self.get_queryset()['applications']:
             print(i.applicant.username)
             if i.applicant.username in request.POST:
-                Membership.objects.create(member = i.applicant, team = i.team, isLeader = False, isEditor = False)
+                Membership.objects.create(member = i.applicant, team = i.team, isLeader = False)
                 Application.objects.get(applicant = i.applicant, team = i.team).delete()
                 return HttpResponseRedirect(reverse('applications'))
         return HttpResponseRedirect(reverse('index')) 
@@ -121,13 +125,12 @@ class CreatePostView(IsEditorRequiredMixin, CreateView):
         form.instance.author = self.request.user
         form.instance.team = self.get_object()
         return super().form_valid(form)
-class MyTeamsView(LoginRequiredMixin, ListView):
+class EditorView(LoginRequiredMixin, ListView):
     login_url = 'home'
-    template_name = 'logedin/editors.html'
+    template_name = 'logedin/editor.html'
     context_object_name = 'object'
     def get_queryset(self):
         teams = Team.objects.filter(teamLeader=self.request.user)
-        isEditor = teams.count() * [True]
         mySet = {
         'teams': teams,
         'posts': Post.objects.filter(team__teamLeader=self.request.user),

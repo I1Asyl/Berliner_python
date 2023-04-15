@@ -1,6 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 from users.models import CustomUser
-
 #create your models here.
 #models.Model is a class that is inherited by all models
 
@@ -18,6 +18,12 @@ class Team(models.Model):
     #name and description of the team    
     name = models.CharField(default="New team", max_length=30, unique=True)
     description = models.CharField(default="Recently created team", max_length=60)
+    
+    def get_posts(self):
+        return Post.objects.filter(team=self).order_by('-date')
+
+    def get_public_posts(self):
+        return Post.objects.filter(team=self, public=True).order_by('-date')
 
 class Application(models.Model):
     applicant = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -26,8 +32,6 @@ class Application(models.Model):
     def __str__(self) -> str:
         return self.applicant.username + " applied to " + self.team.name
     
-    def getPublicPosts(self):
-        return Post.objects.filter(author=self.applicant, public=True)
 
 class Membership(models.Model):
     member = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -40,10 +44,14 @@ class Membership(models.Model):
     def __str__(self) -> str:
         return self.member.username + " is in " + self.team.name + " isLeader: " + str(self.isLeader)
 
+
 class Post(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     content = models.TextField(max_length=200)
+    date = models.DateTimeField(auto_now_add=True, null=True)
     public = models.BooleanField(default=False)
+    parentpost = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, default=None)
     def __str__(self) -> str:
         return self.author.username + " posted in " + self.team.name + ": " + self.content
+    
