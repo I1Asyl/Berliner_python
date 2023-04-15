@@ -19,7 +19,7 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('welcome/', include('main.urls')),
+    path('welcome/', include('welcome.urls')),
     path('',include('logedin.urls')),
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
