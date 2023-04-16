@@ -51,7 +51,14 @@ class Post(models.Model):
     content = models.TextField(max_length=200)
     date = models.DateTimeField(auto_now_add=True, null=True)
     public = models.BooleanField(default=False)
-    parentpost = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, default=None)
     def __str__(self) -> str:
         return self.author.username + " posted in " + self.team.name + ": " + self.content
     
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    content = models.TextField(max_length=200)
+    date = models.DateTimeField(auto_now_add=True, null=True)
+    def __str__(self) -> str:
+        return self.author.username + " commented on " + self.post.team.name + ": " + self.content

@@ -14,10 +14,17 @@
 {% block main %}
     {% for post in object.posts %}
     <div class="post border border-light">
-        <p class="post-header"><b>{{ post.author.first_name }} {{ post.author.last_name }}</b> @<i>{{ post.team.name }}:</i> </p>
-        <p class="post-body">{{ post.content }}</p>
-        <p class="post-footer">{{ post.date }} {% block comments %} {% endblock %}</p>
+        <span class="post-header"><b>{{ post.author.first_name }} {{ post.author.last_name }}</b> @<i>{{ post.team.name }}:</i> </span>
+        <span class="post-body">{{ post.content }}</span>
+        <span class="post-footer">{{ post.date }} <button class="btn comment" data-details="{{ post.pk }}"> Comment </button></span>
     </div>
+    <form class="form-wrapper {{ post.pk }}">
+        <div class="form-group">
+            <label for="comment">Comment:</label>
+            <textarea class="form-control" rows="5" id="comment"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
     {% empty %}
     <div class="post border border-light">
         <p class="post-header"><b>No posts yet</b></p>
@@ -55,5 +62,10 @@
         <div id="No teams">
             <p>Team: No teams</p>
         </div> 
-    {% endfor %}       
+    {% endfor %}    
+
+    {% block script %}
+        <script src="{% static 'js/index.js' %}"></script>
+    {% endblock %}
+    
 {% endblock %}

@@ -12,11 +12,26 @@
 .post-header{
     margin-top: 5px;
     text-align: center;
+    display: block;
 }
 .post-body{
     margin: 0 20px;
+    display: block;
+
+}
+.post-footer{
+    margin: 0 20px;
+    display: block;
+}
+.post{
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    display: block;
+    text-decoration: none;
 }
 .post:hover{
     text-decoration: none;
     background-color: #d8ddded5;
+
 }
