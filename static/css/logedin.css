@@ -8,7 +8,6 @@
     background-color: #b7bcbdd5;
 }
 
-
 .post-header{
     margin-top: 5px;
     text-align: center;
@@ -20,6 +19,21 @@
 
 }
 .post-footer{
+    margin: 0 20px;
+    display: block;
+}
+
+.comment-header{
+    margin-top: 5px;
+    text-align: center;
+    display: block;
+}
+.comment-body{
+    margin: 0 20px;
+    display: block;
+
+}
+.comment-footer{
     margin: 0 20px;
     display: block;
 }

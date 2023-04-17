@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView, CreateView, DetailView, ListView, View, edit, detail
-from .forms import TeamForm, ApplicationTeamForm
-from .models import Team, Membership, Application, Post
+from .forms import TeamForm, ApplicationTeamForm, CommentForm
+from .models import Team, Membership, Application, Post, Comment
 from users.models import CustomUser
 from django import forms
 from django.urls import reverse
@@ -125,10 +125,10 @@ class CreatePostView(IsEditorRequiredMixin, CreateView):
         form.instance.author = self.request.user
         form.instance.team = self.get_object()
         return super().form_valid(form)
-class EditorView(LoginRequiredMixin, ListView):
+class EditorView(edit.FormMixin, ListView):
     login_url = 'home'
     template_name = 'logedin/editor.html'
-    context_object_name = 'object'
+    form_class = CommentForm
     def get_queryset(self):
         teams = Team.objects.filter(teamLeader=self.request.user)
         mySet = {
@@ -136,6 +136,24 @@ class EditorView(LoginRequiredMixin, ListView):
         'posts': Post.objects.filter(team__teamLeader=self.request.user),
         }
         return mySet
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('index'))
+        if request.method == 'POST':
+            return self.post(request, *args, **kwargs)
+        else:
+            return self.get(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {'object': self.get_queryset(), 'form': self.form_class})
+    def post(self, request, *args, **kwargs):
+
+        for i in self.get_queryset()['posts']:
+            if str(i.pk) in request.POST:
+                print(request.POST)
+                comment = Comment.objects.create(content=request.POST["content"], author=request.user, post=i)
+                comment.save()
+                return HttpResponseRedirect(reverse('editor'))
+        return HttpResponseRedirect(reverse('index'))
 class HomePageView(LoginRequiredMixin, ListView):
     login_url = 'home'
     template_name = 'logedin/index.html'
@@ -166,6 +184,7 @@ class CreateTeamView(LoginRequiredMixin, CreateView):
     template_name = 'logedin/createTeam.html'
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
+        print(request.POST['name'])
         if form.is_valid():
             form.instance.teamLeader = self.request.user
             form.instance.save()

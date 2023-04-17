@@ -53,14 +53,18 @@ class Menu {
         } 
     }
     onClickInfoPopUp =() => {
-        self = this; 
+        var self = this; 
         for (let child of self.menu) {
             console.log(child.dataset.details);
             console.log(child);
             console.log("child");
             child.onclick = function() {
                 if(self.current != -1){
+                    console.log(this);
+                    console.log("this");
 
+                    console.log(self.current);
+                    console.log("self.current");
                     self.hideElement(self.current);
                     
                 }
@@ -99,8 +103,11 @@ class Menu {
 }
 
 //let teams = new Menu('team-name', 0);
+
 let comments = new Menu('comment', -1);
 comments.onClickInfoPopUp();
+
+
 let team_names = new Menu('team-name', 0);
 team_names.onClickInfoPopUp();
 team_names.onHoverPopUp();
