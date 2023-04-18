@@ -1,9 +1,9 @@
 
-class Menu {
-    constructor(className, defaultPosition) {
+export default class Menu {
+    constructor(className, defaultPosition, func = false) {
         this.menu = document.getElementsByClassName(className);
         this.hideByDetailsName(this.menu);
-
+        this.func = func;
         if(defaultPosition !== -1) {
             console.log(defaultPosition);
             this.current = this.menu[defaultPosition]; 
@@ -52,19 +52,11 @@ class Menu {
             this.hideByClassName(child.dataset.details);
         } 
     }
-    onClickInfoPopUp =() => {
+    onClickInfoAppear = () => {
         var self = this; 
         for (let child of self.menu) {
-            console.log(child.dataset.details);
-            console.log(child);
-            console.log("child");
             child.onclick = function() {
                 if(self.current != -1){
-                    console.log(this);
-                    console.log("this");
-
-                    console.log(self.current);
-                    console.log("self.current");
                     self.hideElement(self.current);
                     
                 }
@@ -72,12 +64,19 @@ class Menu {
 
                 if(self.current != -1){
                     self.showElement(self.current);
-            
+                    console.log(self.func);
+                    console.log("aha")
+                    if(self.func != false)
+                        self.func(self.current.id)
                 }
             }
-        }
+        }    
     }
-    onHoverPopUp() {
+    onClickInfoPopUp =() => {
+
+    }
+    onHoverAppear() {
+        self = this;
         for (let child of self.menu) {
             child.addEventListener(
                 "mouseenter",
@@ -102,12 +101,3 @@ class Menu {
     }
 }
 
-//let teams = new Menu('team-name', 0);
-
-let comments = new Menu('comment', -1);
-comments.onClickInfoPopUp();
-
-
-let team_names = new Menu('team-name', 0);
-team_names.onClickInfoPopUp();
-team_names.onHoverPopUp();
